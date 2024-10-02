@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import live2d from './components/live2d.vue';
-import { user, submit } from './backend/dataAdd'; // submit.ts からインポート
+import { user, submit } from './backend/submit'; // submit.ts からインポート
 
 </script>
 
@@ -34,5 +34,23 @@ import { user, submit } from './backend/dataAdd'; // submit.ts からインポ�
      Submit
    </button>
  </div>
+ 
 </template>
 
+<script lang="ts">
+import { onMounted } from 'vue';
+import { user, loadUserData, submit } from './backend/submit'; // 外部ファイルからロジックをインポート
+
+export default {
+  setup() {
+    onMounted(() => {
+      loadUserData();  // コンポーネントがマウントされたらデータを読み込む
+    });
+
+    return {
+      user,
+      submit
+    };
+  }
+};
+</script>

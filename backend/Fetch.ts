@@ -1,19 +1,29 @@
-import { doc, getDoc } from "firebase/firestore";
+import { ref, onMounted } from 'vue';
+import { collection, getDocs } from 'firebase/firestore';  // Firestoreの関数をインポート
 import { db } from '@/plugin/firebase';  // Firestoreの初期化済みインスタンスをインポート
 
-// Firestoreからユーザーデータを取得する関数
-export const fetchUserData = async (userId: string) => {
-  try {
-    const userDocRef = doc(db, 'users', userId);  // ドキュメントの参照を取得
-    const userDoc = await getDoc(userDocRef);     // ドキュメントのデータを取得
-    if (userDoc.exists()) {
-      return userDoc.data();  // ドキュメントのデータを返す
-    } else {
-      console.log("No such document!");  // ドキュメントが存在しない場合の処理
-      return null;
+// Firestoreのコレクションデータを取得するカスタムフック
+export function useUserCollection() {
+  const users = ref<any[]>([]);  // Firestoreのドキュメントデータを格納する変数
+
+  const fetchUsers = async () => {
+    try {
+      const userCollectionRef = collection(db, 'users');  // 'users' コレクションの参照を取得
+      const querySnapshot = await getDocs(userCollectionRef);  // コレクション内の全ドキュメントを取得
+      querySnapshot.forEach((doc) => {
+        users.value.push(doc.data());  // 各ドキュメントのデータを配列に追加
+      });
+    } catch (error) {
+      console.error("Error fetching documents: ", error);
     }
-  } catch (error) {
-    console.error("Error fetching document: ", error);  // エラーハンドリング
-    return null;
-  }
-};
+  };
+
+  // コンポーネントがマウントされたらデータを取得
+  onMounted(() => {
+    fetchUsers();
+  });
+
+  return {
+    users
+  };
+}

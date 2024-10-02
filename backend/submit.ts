@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { collection, addDoc } from "firebase/firestore";  // Firestoreから必要な関数をインポート
 import { db } from '@/plugin/firebase';  // Firestoreの初期化
-import { fetchUserData } from '@/backend/Fetch';
+
 interface User {
   name: string;
   email: string;
@@ -13,15 +13,6 @@ export const user = ref<User>({
 });
 
 
-// ユーザーのデータを取得してuserにセット
-export const loadUserData = async () => {
-  const userId = "exampleUserId";  // ここにユーザーのIDを指定
-  const userData = await fetchUserData(userId);  // Firestoreからユーザーデータを取得
-  if (userData) {
-    user.value.name = userData.name || '';  // 取得したデータをフィールドにセット
-    user.value.email = userData.email || '';  // 取得したデータをフィールドにセット
-  }
-};
 
 // Firestoreにデータを保存
 export const submit = async () => {
