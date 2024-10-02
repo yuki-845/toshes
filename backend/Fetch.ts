@@ -1,24 +1,31 @@
-import { ref, onMounted } from 'vue';
-import { collection, getDocs } from 'firebase/firestore';  // Firestoreの関数をインポート
+import { ref, onMounted, onUnmounted } from 'vue';
+import { collection, onSnapshot } from 'firebase/firestore';  // Firestoreのリアルタイムリスナーをインポート
 import { db } from '@/plugin/firebase';  // Firestoreの初期化済みインスタンスをインポート
 
-// Firestoreのコレクションデータを取得するカスタムフック
 export function useUserCollection() {
   const users = ref<any[]>([]);  // Firestoreのドキュメントデータを格納する変数
 
-  const fetchUsers = async () => {
-    try {
-      const userCollectionRef = collection(db, 'users');  // 'users' コレクションの参照を取得
-      const querySnapshot = await getDocs(userCollectionRef);  // コレクション内の全ドキュメントを取得
-      querySnapshot.forEach((doc) => {
+  // リアルタイムでFirestoreからデータを取得する関数
+  const fetchUsers = () => {
+    const userCollectionRef = collection(db, 'users');  // 'users' コレクションの参照を取得
+
+    // リアルタイムでデータを取得するリスナー
+    const unsubscribe = onSnapshot(userCollectionRef, (snapshot) => {
+      users.value = [];  // 配列をリセット
+      snapshot.forEach((doc) => {
         users.value.push(doc.data());  // 各ドキュメントのデータを配列に追加
       });
-    } catch (error) {
+    }, (error) => {
       console.error("Error fetching documents: ", error);
-    }
+    });
+
+    // コンポーネントがアンマウントされたらリスナーを解除
+    onUnmounted(() => {
+      unsubscribe();
+    });
   };
 
-  // コンポーネントがマウントされたらデータを取得
+  // コンポーネントがマウントされたときにデータを取得
   onMounted(() => {
     fetchUsers();
   });
