@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'SFProDisplay-BlackItalic';
+    src: url('../fonts/sfProDisplay/SFProDisplay-BlackItalic.ttf') format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: "SFProDisplay-BlackItalic";
+    font-size: 90px;
+    color: #14363E;
+}
+
+.canvas-style {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: -1;
+    height: 100%;
+}
+
+.characterSelect {
+    margin-left: 40px;
+}
+.selectImage {
+    width: 18%;          
+    height: auto;        
+}
