@@ -14,16 +14,33 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
 </script>
 
 <template>
-  <header><h1>TOSHES</h1></header>
+  <header>
+    <img src="./public/image/TOSHES.png" alt="画像がないよー" class="toshesImage" />
+  </header>
   <div class="live2dBackGround">
     <live2d></live2d>
   </div>
-  <div class="characterSelect">
-    <img src="./public/image/HiragiMiroku.png" alt="画像がないよー" class="selectImage" />
+  <div class="main">
+    <div class="characterSelect">
+    <img src="./public/image/Miku/Select.png" alt="画像がないよー" class="selectImage" />
+    </div>
+    <div class="centerContainer">
+    <div class="characterTalk">
+        <div class="border">
+
+        </div>
+      </div>
+      <div class="addTodo">
+        <div class="addButton">
+
+        </div>
+      </div>
+    </div> 
+    <div class="todoList">
+
+    </div>
   </div>
-  <div class="characterTalk">
-    <div class="bo"></div>
-  </div>
+  
   <!-- <div class="page">
    <label>
      <span>
