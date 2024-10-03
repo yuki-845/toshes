@@ -27,13 +27,18 @@ onMounted(async () => {
 
     // モデルをpixiのステージに追加
     app.stage.addChild(model);
+    
+
+    // fit the window
+    
 
     // モデルの表示位置や表示場所などを設定
     model.x = window.innerWidth / 2;
-    model.y = 100;
-    model.scale.set(0.2, 0.2); // モデルの縮尺
-    model.anchor.set(0.6, 0.1); // 表示の基準の位置
+    model.y = 10;
+   
+    model.anchor.set(0.5, 0.1); // 表示の基準の位置
 
+    model.scale.set(0.3)
   } catch (error) {
     console.error("モデルの読み込みに失敗しました:", error);
   }
@@ -42,5 +47,5 @@ onMounted(async () => {
 </script>
 
 <template>
-    <canvas id="2d"></canvas>
+    <canvas id="2d" class="canvas-style"></canvas>
 </template>
