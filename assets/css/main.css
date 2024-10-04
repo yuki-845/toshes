@@ -46,12 +46,17 @@ html, body {
 }
 
 /* キャラクター選択 */
-.characterSelect {}
 
 .selectImage {
   width: 18vw;
   height: auto;
   margin-left: 3vw;
+}
+.noSelectImage {
+  width: 13vw;
+  height: auto;
+  margin-left: 1.6vw;
+  margin-top: 4vh;
 }
 
 /* 中央コンテナ */
@@ -63,10 +68,13 @@ html, body {
 
 /* キャラクターが話すゾーン */
 .characterTalk {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
   margin-top: 30vh;
   background-color: #ffffff;
-  width: 22vw;
-  height: 23vh;
+  width: 18vw;
+  height: 19vh;
   border-radius: 10%;
   box-shadow: 2px -2px 60px rgba(0, 0, 0, 0.16);
   padding: 20px;
@@ -79,14 +87,21 @@ html, body {
 .border {
   width: 5px;
   height: 3vh;
-  background-color: #14363E;
+  background-color: #00FEDA;
 }
 .characterName {
-  font-family: 'SFProDisplay-Bold', sans-serif;
-  font-size: 30px;
+  margin-left: 0.2vw;
+  margin-bottom: 0.1vw;
+  font-style: normal;
+  font-size: 3vh;
+  color: #14363E;
+  line-height: 0; /* 行間をなくす */
+}
+.Talk {
+  margin-top: 1vh;
+  font-size: 2vh;
   color: #14363E;
 }
-
 /* Todoを増やすよー */
 .addTodo {
   display: flex;
@@ -121,4 +136,12 @@ html, body {
   border-radius: 5%;
   box-shadow: 2px -2px 60px rgba(0, 0, 0, 0.16);
   margin-right: 1vw;
+}
+.todoListImage {
+  width: 19vw;
+  height: auto;
+
+}
+.todoListInner {
+  margin: 30px;
 }

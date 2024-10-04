@@ -23,6 +23,7 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
   <div class="main">
     <div class="characterSelect">
     <img src="./public/image/Miku/Select.png" alt="画像がないよー" class="selectImage" />
+    <!-- <img src="./public/image/Miroku/noSelect.png" alt="画像がないよー" class="noSelectImage"> -->
     </div>
     <div class="centerContainer">
     <div class="characterTalk">
@@ -46,7 +47,13 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
       </div>
     </div> 
     <div class="todoList">
+      <div class="todoListInner">
+        <img src="./public/image/Miku/TodoList.png" alt="" class="todoListImage">
+        <div>
 
+        </div>
+      </div>
+      
     </div>
   </div>
   
