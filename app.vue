@@ -2,7 +2,9 @@
 import live2d from './components/live2d.vue';
 import { user, submit } from './backend/submit'; // submit.ts からインポート
 import { useUserCollection } from './backend/Fetch';  // useUserCollection関数とsubmit関数をインポート
-
+import { ref, onMounted } from 'vue';
+import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/plugin/firebase';  // Firestoreの初期化
 const { users } = useUserCollection();  // Firestoreからデータを取得するための関数を取得
 
     // ボタンクリック時にデータを取得して送信する関数
@@ -24,7 +26,17 @@ const text = ref('');
 const toggleInput = () => {
   showInput.value = !showInput.value;
 };
-
+// FirestoreにisDoneの状態を更新する関数
+const updateTaskStatus = async (task) => {
+  const docRef = doc(db, 'users', task.id); // 更新するドキュメントの参照
+  console.log("javascript")
+  try {
+    await updateDoc(docRef, { isDone: task.isDone }); // FirestoreのisDoneを更新
+    console.log(`Task with ID: ${task.id} updated`);
+  } catch (error) {
+    console.error("Error updating task: ", error);
+  }
+};
 </script>
 
 <template>
@@ -65,14 +77,16 @@ const toggleInput = () => {
         <img src="./public/image/Miku/TodoList.png" alt="" class="todoListImage">
         <div>
           <div v-if="users && users.length > 0">  
-            <div v-for="(user, index) in users" :key="index">
-
-              <div class="todoText">{{ user.todo }}</div>  
-            </div>
+            <div v-for="(user, index) in users" :key="user.id">
+    <div class=""></div>
+    <!-- チェックボックスの状態を v-model でバインドし、変更時に updateTaskStatus を呼び出す -->
+    <input type="checkbox" id="scales" v-model="user.isDone" @change="updateTaskStatus(user)" />
+    <label for="scales" class="todoText">{{ user.todo }}</label>
+  </div>
 
     </div>
     <div v-else>
-      <p>データを取得中...</p> 
+      <p>タスクがありません</p> 
     </div>
         </div>
       </div>
