@@ -49,7 +49,7 @@ const updateTaskStatus = async (task) => {
   <div class="main">
     <div class="characterSelect">
     <img src="./public/image/Miku/Select.png" alt="画像がないよー" class="selectImage" />
-    <!-- <img src="./public/image/Miroku/noSelect.png" alt="画像がないよー" class="noSelectImage"> -->
+    <img src="./public/image/Miroku/noSelect.png" alt="画像がないよー" class="noSelectImage">
     </div>
     <div class="centerContainer">
     <div class="characterTalk">

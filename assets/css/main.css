@@ -46,13 +46,20 @@ html, body {
 }
 
 /* キャラクター選択 */
-
+.characterSelect {
+  display: flex;        /* 子要素を横並びに配置 */
+  flex-direction: column;
+  justify-content: flex-start; /* 必要に応じて横方向の配置を指定 */
+  width: auto;          /* 必要に応じて幅を自動調整 */
+}
 .selectImage {
+  display: inline-block;  /* インラインブロックにすることで不要な余白を防ぐ */
   width: 18vw;
   height: auto;
   margin-left: 3vw;
 }
 .noSelectImage {
+  display: inline-block;  /* インラインブロックにすることで不要な余白を防ぐ */
   width: 13vw;
   height: auto;
   margin-left: 1.6vw;
