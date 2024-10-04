@@ -32,7 +32,7 @@ onMounted(async () => {
             // 画像のスケールと位置設定
             text.scale.set(0.28);
             text.x = text.width / 8;
-            text.y = window.innerHeight - text.height * 2.9;
+            text.y = window.innerHeight - text.height * 2.7;
 
             background.scale.set(0.3);
             background.x = window.innerWidth / 3.3;
@@ -50,7 +50,7 @@ onMounted(async () => {
             model.x = window.innerWidth / 2.3;
             model.y = 10;
             model.anchor.set(0.5, 0.045);
-            model.scale.set(0.76);
+            model.scale.set(0.77);
           });
 
   } catch (error) {

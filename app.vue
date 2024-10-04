@@ -26,14 +26,23 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
     </div>
     <div class="centerContainer">
     <div class="characterTalk">
+      <div class="characterNameContainer">
         <div class="border">
 
         </div>
-      </div>
-      <div class="addTodo">
-        <div class="addButton">
-
+        <div  class="characterName">
+          初音ミク
         </div>
+      </div>
+      <div class="Talk">
+        何かをしゃべるよー
+      </div>
+    </div>
+      <div class="addTodo">
+        <button class="addTodoButton">
+          Add Todo
+        </button>
+       
       </div>
     </div> 
     <div class="todoList">
