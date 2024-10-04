@@ -50,7 +50,17 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
       <div class="todoListInner">
         <img src="./public/image/Miku/TodoList.png" alt="" class="todoListImage">
         <div>
-
+          <div v-if="users && users.length > 0">  
+      <ul>
+        <li v-for="(user, index) in users" :key="index">
+          <pre>{{ user.email}}</pre>  
+          <pre>{{ user.name}}</pre>  
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <p>データを取得中...</p> 
+    </div>
         </div>
       </div>
       
