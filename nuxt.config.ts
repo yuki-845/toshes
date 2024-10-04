@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/main.css',
   ],
-
+  
   ssr: false,
   compatibilityDate: '2024-10-03',
 })
