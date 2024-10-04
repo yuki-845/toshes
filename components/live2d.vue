@@ -51,6 +51,7 @@ onMounted(async () => {
             model.y = 10;
             model.anchor.set(0.5, 0.045);
             model.scale.set(0.77);
+            
           });
 
   } catch (error) {
