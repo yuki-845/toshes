@@ -19,11 +19,13 @@ export const submit = async () => {
   try {
     const userCollectionRef = collection(db, 'users');  // users コレクションを参照
     const docRef = await addDoc(userCollectionRef, {    // 自動で一意のIDを生成してドキュメントを追加
-      name: user.value.todo,
-      email: user.value.isDone
+      todo: user.value.todo,
+      isDone: user.value.isDone
     });
     console.log("Document written with ID: ", docRef.id);
+    return true;  // 保存が成功したらtrueを返す
   } catch (error) {
     console.error("Error adding document: ", error);
+    return false;  // 保存に失敗したらfalseを返す
   }
 };

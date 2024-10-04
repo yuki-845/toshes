@@ -6,11 +6,25 @@ import { useUserCollection } from './backend/Fetch';  // useUserCollection関数
 const { users } = useUserCollection();  // Firestoreからデータを取得するための関数を取得
 
     // ボタンクリック時にデータを取得して送信する関数
-    const handleClick = async () => {
-      await submit(); // Firestoreからデータを取得
+    const addInput = async () => {
+      const isSubmitted = await submit();  // Firestoreにデータを送信
+  if (isSubmitted) {
+    user.value.todo = ""; 
+    toggleInput();  // 成功したらインプットを閉じる
+  }
     };
 
-   
+import { ref } from 'vue';
+
+// inputフィールドの表示・非表示を管理する状態
+const showInput = ref(false);
+const text = ref('');
+
+// ボタンをクリックしたときに表示・非表示を切り替える関数
+const toggleInput = () => {
+  showInput.value = !showInput.value;
+};
+
 </script>
 
 <template>
@@ -40,7 +54,7 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
       </div>
     </div>
       <div class="addTodo">
-        <button class="addTodoButton">
+        <button class="addTodoButton" @click="toggleInput">
           Add Todo
         </button>
        
@@ -51,12 +65,11 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
         <img src="./public/image/Miku/TodoList.png" alt="" class="todoListImage">
         <div>
           <div v-if="users && users.length > 0">  
-      <ul>
-        <li v-for="(user, index) in users" :key="index">
-          <pre>{{ user.email}}</pre>  
-          <pre>{{ user.name}}</pre>  
-        </li>
-      </ul>
+            <div v-for="(user, index) in users" :key="index">
+
+              <div class="todoText">{{ user.todo }}</div>  
+            </div>
+
     </div>
     <div v-else>
       <p>データを取得中...</p> 
@@ -65,8 +78,20 @@ const { users } = useUserCollection();  // Firestoreからデータを取得す�
       </div>
       
     </div>
+    
   </div>
-  
+  <div v-if="showInput" class="overlay">
+      <div class="input-container">
+        <input type="text" v-model=user.todo placeholder="Enter some text" class="custom-input" />
+        <p>入力されたテキスト: {{ text }}</p>
+
+        <!-- ボタンのコンテナ -->
+        <div class="button-container">
+          <button @click="toggleInput">Close</button>
+          <button @click="addInput">Add</button>
+        </div>
+      </div>
+    </div>
   <!-- <div class="page">
    <label>
      <span>
