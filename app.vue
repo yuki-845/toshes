@@ -7,14 +7,14 @@ import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestor
 import { db } from '@/plugin/firebase';  // Firestoreの初期化
 const { users } = useUserCollection();  // Firestoreからデータを取得するための関数を取得
 
-    // ボタンクリック時にデータを取得して送信する関数
-    const addInput = async () => {
-      const isSubmitted = await submit();  // Firestoreにデータを送信
+// ボタンクリック時にデータを取得して送信する関数
+const addInput = async () => {
+  const isSubmitted = await submit();  // Firestoreにデータを送信
   if (isSubmitted) {
-    user.value.todo = ""; 
+    user.value.todo = "";
     toggleInput();  // 成功したらインプットを閉じる
   }
-    };
+};
 
 import { ref } from 'vue';
 
@@ -48,64 +48,59 @@ const updateTaskStatus = async (task) => {
   </div>
   <div class="main">
     <div class="characterSelect">
-    <img src="./public/image/Miku/Select.png" alt="画像がないよー" class="selectImage" />
-    <img src="./public/image/Miroku/noSelect.png" alt="画像がないよー" class="noSelectImage">
+      <img src="./public/image/Miku/Select.png" alt="画像がないよー" class="selectImage" />
+      <img src="./public/image/Miroku/noSelect.png" alt="画像がないよー" class="noSelectImage">
     </div>
     <div class="centerContainer">
-    <div class="characterTalk">
-      <div class="characterNameContainer">
-        <div class="border">
-
+      <div class="characterTalk">
+        <div class="characterNameContainer">
+          <div class="border">
+          </div>
+          <div class="characterName">
+            初音ミク
+          </div>
         </div>
-        <div  class="characterName">
-          初音ミク
+        <div class="Talk">
+          何かをしゃべるよー
         </div>
       </div>
-      <div class="Talk">
-        何かをしゃべるよー
-      </div>
-    </div>
       <div class="addTodo">
         <button class="addTodoButton" @click="toggleInput">
           Add Todo
         </button>
-       
       </div>
-    </div> 
+    </div>
     <div class="todoList">
       <div class="todoListInner">
         <img src="./public/image/Miku/TodoList.png" alt="" class="todoListImage">
         <div>
-          <div v-if="users && users.length > 0">  
+          <div v-if="users && users.length > 0">
             <div v-for="(user, index) in users" :key="user.id">
-    <div class=""></div>
-    <!-- チェックボックスの状態を v-model でバインドし、変更時に updateTaskStatus を呼び出す -->
-    <input type="checkbox" id="scales" v-model="user.isDone" @change="updateTaskStatus(user)" />
-    <label for="scales" class="todoText">{{ user.todo }}</label>
-  </div>
-
-    </div>
-    <div v-else>
-      <p>タスクがありません</p> 
-    </div>
+              <div class=""></div>
+              <!-- チェックボックスの状態を v-model でバインドし、変更時に updateTaskStatus を呼び出す -->
+              <input type="checkbox" id="scales" v-model="user.isDone" @change="updateTaskStatus(user)" />
+              <label for="scales" class="todoText">{{ user.todo }}</label>
+            </div>
+          </div>
+          <div v-else>
+            <p>タスクがありません</p>
+          </div>
         </div>
       </div>
-      
     </div>
-    
   </div>
   <div v-if="showInput" class="overlay">
-      <div class="input-container">
-        <input type="text" v-model=user.todo placeholder="Enter some text" class="custom-input" />
-        <p>入力されたテキスト: {{ text }}</p>
+    <div class="input-container">
+      <input type="text" v-model=user.todo placeholder="Enter some text" class="custom-input" />
+      <p>入力されたテキスト: {{ text }}</p>
 
-        <!-- ボタンのコンテナ -->
-        <div class="button-container">
-          <button @click="toggleInput">Close</button>
-          <button @click="addInput">Add</button>
-        </div>
+      <!-- ボタンのコンテナ -->
+      <div class="button-container">
+        <button @click="toggleInput">Close</button>
+        <button @click="addInput">Add</button>
       </div>
     </div>
+  </div>
   <!-- <div class="page">
    <label>
      <span>
@@ -125,20 +120,19 @@ const updateTaskStatus = async (task) => {
        v-model="user.email"
      >
    </label>
-   <button type="button" @click="handleClick">Submit</button> 
+   <button type="button" @click="handleClick">Submit</button>
  </div>
  <div class="page">
-    <div v-if="users && users.length > 0">  
+    <div v-if="users && users.length > 0">
       <h2>Firestoreのコレクション内のすべてのドキュメント:</h2>
       <ul>
         <li v-for="(user, index) in users" :key="index">
-          <pre>{{ user }}</pre>  
+          <pre>{{ user }}</pre>
         </li>
       </ul>
     </div>
     <div v-else>
-      <p>データを取得中...</p> 
+      <p>データを取得中...</p>
     </div>
   </div> -->
 </template>
-

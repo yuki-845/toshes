@@ -10,11 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
     "firebase": "^10.14.0",
     "nuxt": "^3.13.2",
     "pixi-live2d-display": "^0.4.0",
     "pixi.js": "^6.5.10",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
   }
 }
