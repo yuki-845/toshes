@@ -2,7 +2,7 @@
 import live2d from './components/live2d.vue';
 import { user, submit } from './backend/submit'; // submit.ts からインポート
 import { useUserCollection } from './backend/Fetch';  // useUserCollection関数とsubmit関数をインポート
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/plugin/firebase';  // Firestoreの初期化
 import axios from 'axios';
@@ -63,6 +63,37 @@ const playAudio = async () => {
     console.error('音声再生エラー', e);
   }
 };
+
+import { GoogleGenerativeAI } from '@google/generative-ai';
+const inputText = ref('');
+const outputText = ref('');
+
+const generateText = async () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('APIキーが設定されていません。');
+  }
+  const genAI = new GoogleGenerativeAI(apiKey);
+  try {
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    console.log('Model:', model); // モデルを確認
+    const prompt = inputText.value;
+
+    // generateContent メソッドを使用
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    text.value = response.text(); // 正しいプロパティを取得
+  } catch (error) {
+    console.error('Error generating text:', error);
+    outputText.value = 'テキスト生成中にエラーが発生しました。もう一度試してください。';
+  }
+};
+
+watchEffect(() => {
+  playAudio();
+});
+
 </script>
 
 <template>
@@ -73,6 +104,11 @@ const playAudio = async () => {
     <input v-model="text" placeholder="テキストを入力" />
     <input v-model="speaker" placeholder="スピーカーIDを入力" />
     <button @click="playAudio">再生</button>
+  </div>
+  <div>
+    <input type="text" v-model="inputText" />
+    <button @click="generateText">生成</button>
+    <p>{{ outputText }}</p>
   </div>
   <div class="live2dBackGround">
     <live2d></live2d>
